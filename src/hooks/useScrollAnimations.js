@@ -82,16 +82,8 @@ export function useScrollAnimations(ready) {
         /* SECTION TRANSITIONS — card-stack slide.
            Each new section slides up over the previous one: the previous
            section's content barely moves (it drifts down at ~40% of scroll
-           speed), shrinks back and fades, while the incoming section's
-           rounded top corners flatten as it arrives. */
+           speed), shrinks back and fades. */
         gsap.utils.toArray('main > .sheet').forEach((sheet) => {
-          const r = parseFloat(getComputedStyle(sheet).borderTopLeftRadius) || 44
-          gsap.fromTo(sheet,
-            { borderTopLeftRadius: r * 2.8, borderTopRightRadius: r * 2.8 },
-            {
-              borderTopLeftRadius: r, borderTopRightRadius: r, ease: 'none',
-              scrollTrigger: { trigger: sheet, start: 'top bottom', end: 'top 25%', scrub: true },
-            })
 
           const prev = sheet.previousElementSibling
           if (!prev || prev.tagName !== 'SECTION' || prev.classList.contains('hero')) return

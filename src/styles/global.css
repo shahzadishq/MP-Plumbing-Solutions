@@ -26,7 +26,6 @@
 
   --radius: 22px;
   --radius-sm: 14px;
-  --sheet-r: 44px;
   --maxw: 1240px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --font-display: 'Sora', system-ui, sans-serif;
@@ -84,15 +83,9 @@ ul { list-style: none; }
 .container { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 24px; }
 section { position: relative; padding-block: clamp(80px, 10vw, 140px); }
 
-/* Sections slide over each other like sheets with rounded tops */
-.sheet {
-  margin-top: calc(var(--sheet-r) * -1);
-  border-radius: var(--sheet-r) var(--sheet-r) 0 0;
-  padding-top: calc(clamp(80px, 10vw, 140px) + 10px);
-  padding-bottom: calc(clamp(80px, 10vw, 140px) + var(--sheet-r));
-  box-shadow: 0 -24px 60px rgba(5, 11, 31, 0.18);
-}
-.sheet.flat-bottom { padding-bottom: clamp(80px, 10vw, 140px); }
+/* .sheet = a section that slides over the previous one while scrolling
+   (see useScrollAnimations). Straight edges, no overlap. */
+.sheet { position: relative; box-shadow: 0 -24px 60px rgba(5, 11, 31, 0.18); }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
@@ -415,7 +408,6 @@ section { position: relative; padding-block: clamp(80px, 10vw, 140px); }
   .footer-top { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 760px) {
-  :root { --sheet-r: 28px; }
   .nav-links, .nav-phone { display: none; }
   .burger { display: flex; }
   .nav-links.mobile { display: flex; flex-direction: column; position: fixed; inset: 0; background: rgba(8,18,48,0.97); backdrop-filter: blur(16px); align-items: center; justify-content: center; gap: 30px; font-size: 1.3rem; }
@@ -453,8 +445,6 @@ section { position: relative; padding-block: clamp(80px, 10vw, 140px); }
 }
 
 /* -------------------- LAYOUT EXTRAS -------------------- */
-/* brand band sits under the first light sheet's rounded corners */
-.marquee { padding-bottom: calc(22px + var(--sheet-r)); }
 .gallery-pin { padding-bottom: 10px; }
 @media (max-width: 760px) {
   .gallery-viewport { overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
@@ -469,12 +459,3 @@ html, body, main, footer { overflow-x: clip; }
 .nav-links a.active { color: #fff; }
 .nav-links a.active::after { width: 100%; }
 
-/* sections overlap the previous one by enough to cover the large corner
-   radius they start with while sliding in (see useScrollAnimations) */
-.sheet {
-  margin-top: calc(var(--sheet-r) * -2.8);
-  padding-bottom: calc(clamp(80px, 10vw, 140px) + var(--sheet-r) * 2.8);
-}
-.sheet.flat-bottom { padding-bottom: clamp(80px, 10vw, 140px); }
-.sheet { padding-top: calc(clamp(80px, 10vw, 140px) + 10px); }
-.marquee { padding-bottom: calc(22px + var(--sheet-r) * 2.8); }
