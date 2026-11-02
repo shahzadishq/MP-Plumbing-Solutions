@@ -121,6 +121,17 @@ export const Icon = {
       <path d="m9 12 2 2 4-4" />
     </svg>
   ),
+  playSolid: (p) => (
+    <svg width={p?.s || 16} height={p?.s || 16} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5.5v13l11-6.5-11-6.5z" />
+    </svg>
+  ),
+  building: () => (
+    <svg {...base} width={28} height={28}>
+      <rect x="4" y="3" width="16" height="18" rx="2" />
+      <path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3" />
+    </svg>
+  ),
   drop: (p) => (
     <svg width={p?.s || 54} height={p?.s || 54} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 2c-4 5-7 8.5-7 12.5a7 7 0 0 0 14 0C19 10.5 16 7 12 2z" />

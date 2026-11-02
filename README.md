@@ -5,7 +5,9 @@ built with **React + Vite**, **three.js** (via @react-three/fiber), and **GSAP**
 
 ## ✨ Features
 
-- Interactive 3D "water" hero scene (three.js / react-three-fiber) with pointer & scroll reactivity
+- Interactive 3D plumbing hero (glass pipes with flowing water, valve, gauge, dripping tap) that reacts to scroll
+- Logo intro + curtain reveal, word-by-word headline animations
+- Real job videos (autoplay loops + full clips with sound) and a pinned horizontal project gallery
 - Buttery smooth scrolling (Lenis) synced with GSAP ScrollTrigger reveal animations
 - Animated stat counters, hover-reactive service cards, FAQ accordion
 - Fully responsive (desktop → mobile) with a mobile menu
@@ -33,11 +35,12 @@ src/config/siteConfig.js
 
 Open it, change the text, save. That's it.
 
-## 🖼️ Adding your photos & videos
+## 🖼️ Photos, videos & logo
 
-Drop image/video files into `public/media/` and reference them (see
-`public/media/README.txt`). The **Why Us** section (`src/components/WhyUs.jsx`)
-has a ready-made media slot marked with a `MEDIA SLOT` comment.
+- Logo + favicons: `public/brand/` (cut from the client's logo file)
+- Photos: `public/media/photos/` · Videos: `public/media/video/`
+- Which photo/video appears where is set in `src/config/siteConfig.js`
+  (`services[].image`, `videos`, `gallery`). See `public/media/README.txt`.
 
 ## 📨 Contact form
 
@@ -61,8 +64,9 @@ public/
 
 ## 🎨 Theme
 
-Colours are CSS variables at the top of `src/styles/global.css` (`:root`).
-Adjust `--aqua-400`, `--blue-500`, `--navy-900` etc. to retune the palette.
+Brand colour is the logo blue `#2c489b`. Colours are CSS variables at the top of
+`src/styles/global.css` (`:root`). Sections use `.sec-dark` / `.sec-light`
+themes and alternate down the page.
 
 ## ☁️ Deploying
 

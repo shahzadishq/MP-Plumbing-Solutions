@@ -1,4 +1,4 @@
-import { business, services } from '../config/siteConfig'
+import { business, services, asset } from '../config/siteConfig'
 import { Icon } from './icons'
 
 export default function Footer() {
@@ -10,12 +10,12 @@ export default function Footer() {
   ].filter(Boolean)
 
   return (
-    <footer className="footer">
+    <footer className="footer sec-dark sec-darker">
       <div className="container">
         <div className="footer-top">
           <div>
             <div className="brand">
-              <span className="brand-mark"><Icon.drop s={22} /></span>
+              <img src={asset(business.logo)} alt={`${business.name} logo`} width="46" height="46" />
               <span>{business.name}</span>
             </div>
             <p>{business.subheading}</p>
@@ -36,7 +36,7 @@ export default function Footer() {
           <div>
             <h5>Services</h5>
             <div className="footer-links">
-              {services.slice(0, 5).map((s) => (
+              {services.map((s) => (
                 <a key={s.title} href="#services">{s.title}</a>
               ))}
             </div>
@@ -47,8 +47,8 @@ export default function Footer() {
             <div className="footer-links">
               <a href={business.phoneHref}>{business.phone}</a>
               <a href={business.emailHref}>{business.email}</a>
-              <span style={{ color: 'var(--ink-soft)', fontSize: '0.95rem' }}>{business.address}</span>
-              <span style={{ color: 'var(--ink-soft)', fontSize: '0.95rem' }}>{business.serviceArea}</span>
+              <span>{business.address}</span>
+              <span>{business.serviceArea}</span>
             </div>
           </div>
         </div>

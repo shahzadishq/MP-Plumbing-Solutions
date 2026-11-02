@@ -3,20 +3,22 @@ import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { useScrollAnimations } from './hooks/useScrollAnimations'
 
 import Loader from './components/Loader'
+import ScrollProgress from './components/ScrollProgress'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
 import Services from './components/Services'
-import Stats from './components/Stats'
+import VideoJobs from './components/VideoJobs'
 import WhyUs from './components/WhyUs'
+import Gallery from './components/Gallery'
 import Process from './components/Process'
 import Testimonials from './components/Testimonials'
 import Faq from './components/Faq'
-import CTA from './components/CTA'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingCall from './components/FloatingCall'
 
+/* Section rhythm: dark hero → brand band → light → dark → light → dark → … */
 export default function App() {
   const [ready, setReady] = useState(false)
 
@@ -24,25 +26,26 @@ export default function App() {
   useScrollAnimations(ready)
 
   useEffect(() => {
-    // brief intro so the loader + hero animation feel intentional
-    const t = setTimeout(() => setReady(true), 1100)
+    // let the logo intro play before revealing the site
+    const t = setTimeout(() => setReady(true), 1500)
     return () => clearTimeout(t)
   }, [])
 
   return (
     <>
-      <Loader done={ready} />
+      <Loader ready={ready} />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero ready={ready} />
         <Marquee />
         <Services />
-        <Stats />
+        <VideoJobs />
         <WhyUs />
+        <Gallery />
         <Process />
         <Testimonials />
         <Faq />
-        <CTA />
         <Contact />
       </main>
       <Footer />

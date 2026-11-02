@@ -60,11 +60,11 @@ function makeFlowTexture() {
   c.height = 8
   const g = c.getContext('2d')
   const grd = g.createLinearGradient(0, 0, 256, 0)
-  grd.addColorStop(0, 'rgba(20,120,255,0.15)')
-  grd.addColorStop(0.4, 'rgba(60,190,255,0.85)')
-  grd.addColorStop(0.55, 'rgba(230,250,255,1)')
-  grd.addColorStop(0.7, 'rgba(60,190,255,0.85)')
-  grd.addColorStop(1, 'rgba(20,120,255,0.15)')
+  grd.addColorStop(0, 'rgba(44,72,155,0.2)')
+  grd.addColorStop(0.4, 'rgba(110,150,255,0.9)')
+  grd.addColorStop(0.55, 'rgba(235,245,255,1)')
+  grd.addColorStop(0.7, 'rgba(110,150,255,0.9)')
+  grd.addColorStop(1, 'rgba(44,72,155,0.2)')
   g.fillStyle = grd
   g.fillRect(0, 0, 256, 8)
   const t = new THREE.CanvasTexture(c)
@@ -122,16 +122,16 @@ function useMaterials() {
       copper: new THREE.MeshStandardMaterial({ color: '#c8784a', metalness: 1, roughness: 0.26 }),
       copperDark: new THREE.MeshStandardMaterial({ color: '#9a5634', metalness: 1, roughness: 0.32 }),
       glass: new THREE.MeshPhysicalMaterial({
-        color: '#d8f2ff', metalness: 0, roughness: 0.04, transparent: true,
+        color: '#dfe7ff', metalness: 0, roughness: 0.04, transparent: true,
         opacity: 0.2, clearcoat: 1, clearcoatRoughness: 0.05, depthWrite: false,
       }),
       waterBase: new THREE.MeshStandardMaterial({
-        color: '#0a84ff', emissive: '#0b5fb0', emissiveIntensity: 0.6,
+        color: '#3a62e0', emissive: '#22397d', emissiveIntensity: 0.6,
         transparent: true, opacity: 0.45, depthWrite: false,
       }),
       red: new THREE.MeshStandardMaterial({ color: '#e63946', metalness: 0.3, roughness: 0.35 }),
       drop: new THREE.MeshStandardMaterial({
-        color: '#8fe0ff', emissive: '#27b8ff', emissiveIntensity: 0.6, metalness: 0.2, roughness: 0.05,
+        color: '#a9c4ff', emissive: '#4a6fd6', emissiveIntensity: 0.6, metalness: 0.2, roughness: 0.05,
       }),
     }),
     []
@@ -177,7 +177,7 @@ function PipeRun({ points, kind, range: [w0, w1], mats }) {
       flowTex
         ? new THREE.MeshBasicMaterial({
             map: flowTex, transparent: true, depthWrite: false,
-            blending: THREE.AdditiveBlending, color: '#bfeaff',
+            blending: THREE.AdditiveBlending, color: '#c9d8ff',
           })
         : null,
     [flowTex]
@@ -403,7 +403,7 @@ function Drips({ origin, floorY, mats }) {
           visible={false}
         >
           <ringGeometry args={[0.92, 1, 64]} />
-          <meshBasicMaterial color="#7fdcff" transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
+          <meshBasicMaterial color="#9db7ff" transparent opacity={0} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
       ))}
     </group>
@@ -437,7 +437,7 @@ function Bubbles({ count = 160 }) {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
       </bufferGeometry>
-      <pointsMaterial size={0.05} color="#8fe0ff" transparent opacity={0.5} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} />
+      <pointsMaterial size={0.05} color="#9db7ff" transparent opacity={0.5} sizeAttenuation depthWrite={false} blending={THREE.AdditiveBlending} />
     </points>
   )
 }
@@ -539,12 +539,12 @@ export default function Scene3D() {
         camera={{ position: [0, 0, 9], fov: 40 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       >
-        <color attach="background" args={['#05101f']} />
-        <fog attach="fog" args={['#05101f', 10, 22]} />
+        <color attach="background" args={['#081230']} />
+        <fog attach="fog" args={['#081230', 10, 22]} />
         <ambientLight intensity={0.35} />
         <directionalLight position={[4, 6, 5]} intensity={1.4} color="#e6f5ff" />
-        <pointLight position={[-5, -1, 3]} intensity={18} distance={14} color="#0a84ff" />
-        <pointLight position={[5, 3, 2]} intensity={14} distance={14} color="#5fd3ff" />
+        <pointLight position={[-5, -1, 3]} intensity={18} distance={14} color="#3352b0" />
+        <pointLight position={[5, 3, 2]} intensity={14} distance={14} color="#8eaaff" />
 
         <Suspense fallback={null}>
           <Assembly />
@@ -552,8 +552,8 @@ export default function Scene3D() {
           {/* Procedural environment for chrome/copper reflections — no network fetch */}
           <Environment resolution={256}>
             <Lightformer intensity={2.4} color="#ffffff" position={[0, 5, -6]} scale={[14, 4, 1]} />
-            <Lightformer intensity={1.6} color="#0a84ff" position={[-7, 0, 2]} rotation-y={Math.PI / 2} scale={[8, 8, 1]} />
-            <Lightformer intensity={1.8} color="#9be4ff" position={[7, 1, 2]} rotation-y={-Math.PI / 2} scale={[8, 8, 1]} />
+            <Lightformer intensity={1.6} color="#3352b0" position={[-7, 0, 2]} rotation-y={Math.PI / 2} scale={[8, 8, 1]} />
+            <Lightformer intensity={1.8} color="#b3c6ff" position={[7, 1, 2]} rotation-y={-Math.PI / 2} scale={[8, 8, 1]} />
             <Lightformer intensity={0.8} color="#ffd9b8" position={[0, -5, 3]} rotation-x={-Math.PI / 2} scale={[12, 4, 1]} />
           </Environment>
         </Suspense>

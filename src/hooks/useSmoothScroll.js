@@ -22,6 +22,8 @@ export function useSmoothScroll() {
     })
 
     lenis.on('scroll', ScrollTrigger.update)
+    window.__lenis = lenis // lets the loader/modals pause scrolling
+    if (document.querySelector('.loader')) lenis.stop() // intro still showing
 
     const raf = (time) => {
       lenis.raf(time * 1000)
@@ -48,6 +50,7 @@ export function useSmoothScroll() {
       document.removeEventListener('click', onClick)
       gsap.ticker.remove(raf)
       lenis.destroy()
+      if (window.__lenis === lenis) delete window.__lenis
     }
   }, [])
 }
