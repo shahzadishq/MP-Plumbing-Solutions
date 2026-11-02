@@ -19,7 +19,8 @@ export default function Hero({ ready }) {
         .from('.hero-sub', { y: 30, opacity: 0, duration: 0.7 }, '-=0.5')
         .from('.hero-actions > *', { y: 24, opacity: 0, duration: 0.6, stagger: 0.1 }, '-=0.4')
         .from('.hero-badge', { y: 18, opacity: 0, duration: 0.5, stagger: 0.07 }, '-=0.3')
-        .from('.scroll-hint', { opacity: 0, duration: 0.8 }, '-=0.2')
+        .from('.hero-chip', { x: 40, opacity: 0, duration: 0.8, stagger: 0.15 }, '+=0.6')
+        .from('.scroll-hint', { opacity: 0, duration: 0.8 }, '-=0.6')
     }, root)
     return () => ctx.revert()
   }, [ready])
@@ -32,6 +33,7 @@ export default function Hero({ ready }) {
       <div className="hero-overlay" />
 
       <div className="container hero-inner">
+       <div className="hero-copy">
         <span className="eyebrow hero-eyebrow">24/7 Emergency Plumbers · {business.serviceArea}</span>
         <h1>
           <span className="hero-line">Plumbing you can</span>{' '}
@@ -54,6 +56,19 @@ export default function Hero({ ready }) {
               <Icon.check s={15} /> {b}
             </span>
           ))}
+        </div>
+       </div>
+      </div>
+
+      {/* floating info chips beside the 3D plumbing scene (desktop) */}
+      <div className="hero-chips" aria-hidden="true">
+        <div className="hero-chip chip-a">
+          <span className="chip-ic"><Icon.emergency /></span>
+          <div><strong>24/7 call-outs</strong><small>Burst pipes &amp; leaks</small></div>
+        </div>
+        <div className="hero-chip chip-b">
+          <span className="chip-ic"><Icon.shield s={22} /></span>
+          <div><strong>Licensed in VIC</strong><small>Fully insured work</small></div>
         </div>
       </div>
 
