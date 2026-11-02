@@ -79,6 +79,44 @@ export function useScrollAnimations(ready) {
           })
         })
 
+        /* SECTION TRANSITIONS — card-stack slide.
+           Each new section slides up over the previous one: the previous
+           section's content barely moves (it drifts down at ~40% of scroll
+           speed), shrinks back and fades, while the incoming section's
+           rounded top corners flatten as it arrives. */
+        gsap.utils.toArray('main > .sheet').forEach((sheet) => {
+          const r = parseFloat(getComputedStyle(sheet).borderTopLeftRadius) || 44
+          gsap.fromTo(sheet,
+            { borderTopLeftRadius: r * 2.8, borderTopRightRadius: r * 2.8 },
+            {
+              borderTopLeftRadius: r, borderTopRightRadius: r, ease: 'none',
+              scrollTrigger: { trigger: sheet, start: 'top bottom', end: 'top 25%', scrub: true },
+            })
+
+          const prev = sheet.previousElementSibling
+          if (!prev || prev.tagName !== 'SECTION' || prev.classList.contains('hero')) return
+          // animate the previous section's content (not the section itself,
+          // so pinned/fixed children keep working)
+          // (a pinned block is wrapped in a .pin-spacer — transforming that
+          // wrapper would break the pin, so animate what's inside it instead)
+          const targets = [...prev.children].flatMap((c) => {
+            const pinned = c.classList.contains('pin-spacer') ? c.firstElementChild : c
+            return pinned.classList.contains('gallery-pin') ? [...pinned.children] : [c]
+          })
+          gsap.fromTo(targets,
+            { y: 0, scale: 1, opacity: 1 },
+            {
+              y: () => window.innerHeight * 0.4,
+              scale: 0.9,
+              opacity: 0.2,
+              ease: 'none',
+              transformOrigin: '50% 100%',
+              scrollTrigger: {
+                trigger: sheet, start: 'top bottom', end: 'top top',
+                scrub: true, invalidateOnRefresh: true,
+              },
+            })
+        })
       }
 
       gsap.utils.toArray('[data-count]').forEach((el) => {

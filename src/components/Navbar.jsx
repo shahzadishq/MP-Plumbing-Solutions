@@ -2,6 +2,12 @@ import { useState, useEffect, useRef } from 'react'
 import { business, asset } from '../config/siteConfig'
 import { Icon } from './icons'
 
+// which nav link lights up while each section is on screen
+const sectionToLink = {
+  services: '#services', jobs: '#jobs', gallery: '#jobs', why: '#why',
+  process: '#why', reviews: '#reviews', faq: '#reviews', contact: '#contact',
+}
+
 const links = [
   { href: '#services', label: 'Services' },
   { href: '#jobs', label: 'Our Work' },
@@ -14,7 +20,20 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState('')
   const lastY = useRef(0)
+
+  useEffect(() => {
+    // a section counts as "current" when it crosses the middle of the screen
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) setActive(sectionToLink[e.target.id] || '')
+      }),
+      { rootMargin: '-50% 0px -50% 0px' }
+    )
+    document.querySelectorAll('main section[id]').forEach((el) => io.observe(el))
+    return () => io.disconnect()
+  }, [])
 
   useEffect(() => {
     const onScroll = () => {
@@ -48,7 +67,7 @@ export default function Navbar() {
 
         <nav className={`nav-links ${open ? 'mobile' : ''}`}>
           {links.map((l) => (
-            <a key={l.href} href={l.href} onClick={() => setOpen(false)}>
+            <a key={l.href} href={l.href} className={active === l.href ? 'active' : ''} onClick={() => setOpen(false)}>
               {l.label}
             </a>
           ))}

@@ -466,3 +466,15 @@ section { position: relative; padding-block: clamp(80px, 10vw, 140px); }
 html, body, main, footer { overflow-x: clip; }
 .sec-dark.sheet { box-shadow: none; }
 @media (min-width: 761px) { .gallery-pin { padding-top: 40px; } }
+.nav-links a.active { color: #fff; }
+.nav-links a.active::after { width: 100%; }
+
+/* sections overlap the previous one by enough to cover the large corner
+   radius they start with while sliding in (see useScrollAnimations) */
+.sheet {
+  margin-top: calc(var(--sheet-r) * -2.8);
+  padding-bottom: calc(clamp(80px, 10vw, 140px) + var(--sheet-r) * 2.8);
+}
+.sheet.flat-bottom { padding-bottom: clamp(80px, 10vw, 140px); }
+.sheet { padding-top: calc(clamp(80px, 10vw, 140px) + 10px); }
+.marquee { padding-bottom: calc(22px + var(--sheet-r) * 2.8); }

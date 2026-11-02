@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { videos, asset } from '../config/siteConfig'
 import { Icon } from './icons'
 import SplitHeading from './SplitHeading'
@@ -85,7 +86,7 @@ export default function VideoJobs() {
         </div>
       </div>
 
-      {open && (
+      {open && createPortal(
         <div className="video-modal" onClick={() => setOpen(null)} data-lenis-prevent>
           <button className="video-modal-close" aria-label="Close video" onClick={() => setOpen(null)}>
             ×
@@ -98,7 +99,8 @@ export default function VideoJobs() {
             playsInline
             onClick={(e) => e.stopPropagation()}
           />
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   )
